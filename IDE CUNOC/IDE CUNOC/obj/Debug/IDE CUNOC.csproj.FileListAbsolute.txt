@@ -1,0 +1,10 @@
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\bin\Debug\IDE CUNOC.exe.config
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\bin\Debug\IDE CUNOC.exe
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\bin\Debug\IDE CUNOC.pdb
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE CUNOC.csprojAssemblyReference.cache
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE_CUNOC.Form1.resources
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE_CUNOC.Properties.Resources.resources
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE CUNOC.csproj.GenerateResource.cache
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE CUNOC.csproj.CoreCompileInputs.cache
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE CUNOC.exe
+C:\Users\Baquiax\Documents\Ludvin\IDE\IDE CUNOC\IDE CUNOC\obj\Debug\IDE CUNOC.pdb
