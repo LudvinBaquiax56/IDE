@@ -36,10 +36,15 @@
             this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarProyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layout = new System.Windows.Forms.TableLayoutPanel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.RtxtCodigo = new System.Windows.Forms.RichTextBox();
             this.lblFilaColumna = new System.Windows.Forms.Label();
             this.btnCompilar = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.RtxtErrores = new System.Windows.Forms.RichTextBox();
+            this.OPArchivos = new System.Windows.Forms.OpenFileDialog();
+            this.SFGuardar = new System.Windows.Forms.SaveFileDialog();
+            this.proyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crearProyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FBDBuscarCarpeta = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             this.layout.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +52,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem});
+            this.archivoToolStripMenuItem,
+            this.proyectoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -72,12 +78,14 @@
             this.crearToolStripMenuItem.Name = "crearToolStripMenuItem";
             this.crearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.crearToolStripMenuItem.Text = "Guardar";
+            this.crearToolStripMenuItem.Click += new System.EventHandler(this.crearToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -105,30 +113,30 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.layout.ColumnCount = 2;
-            this.layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.51546F));
-            this.layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.48454F));
-            this.layout.Controls.Add(this.richTextBox1, 0, 0);
+            this.layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.layout.Controls.Add(this.RtxtCodigo, 0, 0);
             this.layout.Controls.Add(this.lblFilaColumna, 0, 1);
             this.layout.Controls.Add(this.btnCompilar, 1, 1);
-            this.layout.Controls.Add(this.richTextBox2, 0, 2);
+            this.layout.Controls.Add(this.RtxtErrores, 0, 2);
             this.layout.Location = new System.Drawing.Point(12, 27);
             this.layout.Name = "layout";
             this.layout.RowCount = 3;
             this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.layout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layout.Size = new System.Drawing.Size(776, 462);
             this.layout.TabIndex = 1;
             // 
-            // richTextBox1
+            // RtxtCodigo
             // 
-            this.layout.SetColumnSpan(this.richTextBox1, 2);
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(770, 355);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.layout.SetColumnSpan(this.RtxtCodigo, 2);
+            this.RtxtCodigo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RtxtCodigo.Location = new System.Drawing.Point(3, 3);
+            this.RtxtCodigo.Name = "RtxtCodigo";
+            this.RtxtCodigo.Size = new System.Drawing.Size(770, 355);
+            this.RtxtCodigo.TabIndex = 0;
+            this.RtxtCodigo.Text = "";
             // 
             // lblFilaColumna
             // 
@@ -138,7 +146,7 @@
             this.lblFilaColumna.AutoSize = true;
             this.lblFilaColumna.Location = new System.Drawing.Point(3, 361);
             this.lblFilaColumna.Name = "lblFilaColumna";
-            this.lblFilaColumna.Size = new System.Drawing.Size(385, 25);
+            this.lblFilaColumna.Size = new System.Drawing.Size(382, 30);
             this.lblFilaColumna.TabIndex = 1;
             this.lblFilaColumna.Text = "Fila: 0, Columa: 0";
             // 
@@ -147,23 +155,42 @@
             this.btnCompilar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCompilar.Location = new System.Drawing.Point(394, 364);
+            this.btnCompilar.Location = new System.Drawing.Point(391, 364);
             this.btnCompilar.Name = "btnCompilar";
-            this.btnCompilar.Size = new System.Drawing.Size(379, 19);
+            this.btnCompilar.Size = new System.Drawing.Size(382, 24);
             this.btnCompilar.TabIndex = 2;
             this.btnCompilar.Text = "Compilar";
             this.btnCompilar.UseVisualStyleBackColor = true;
             // 
-            // richTextBox2
+            // RtxtErrores
             // 
-            this.layout.SetColumnSpan(this.richTextBox2, 2);
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Enabled = false;
-            this.richTextBox2.Location = new System.Drawing.Point(3, 389);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(770, 70);
-            this.richTextBox2.TabIndex = 3;
-            this.richTextBox2.Text = "";
+            this.layout.SetColumnSpan(this.RtxtErrores, 2);
+            this.RtxtErrores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RtxtErrores.Enabled = false;
+            this.RtxtErrores.Location = new System.Drawing.Point(3, 394);
+            this.RtxtErrores.Name = "RtxtErrores";
+            this.RtxtErrores.Size = new System.Drawing.Size(770, 70);
+            this.RtxtErrores.TabIndex = 3;
+            this.RtxtErrores.Text = "";
+            // 
+            // OPArchivos
+            // 
+            this.OPArchivos.FileName = "openFileDialog1";
+            // 
+            // proyectoToolStripMenuItem
+            // 
+            this.proyectoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.crearProyectoToolStripMenuItem});
+            this.proyectoToolStripMenuItem.Name = "proyectoToolStripMenuItem";
+            this.proyectoToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.proyectoToolStripMenuItem.Text = "Proyecto";
+            // 
+            // crearProyectoToolStripMenuItem
+            // 
+            this.crearProyectoToolStripMenuItem.Name = "crearProyectoToolStripMenuItem";
+            this.crearProyectoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.crearProyectoToolStripMenuItem.Text = "Crear Proyecto";
+            this.crearProyectoToolStripMenuItem.Click += new System.EventHandler(this.crearProyectoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -195,10 +222,15 @@
         private System.Windows.Forms.ToolStripMenuItem cerrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarProyectoToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel layout;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox RtxtCodigo;
         private System.Windows.Forms.Label lblFilaColumna;
         private System.Windows.Forms.Button btnCompilar;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox RtxtErrores;
+        private System.Windows.Forms.OpenFileDialog OPArchivos;
+        private System.Windows.Forms.SaveFileDialog SFGuardar;
+        private System.Windows.Forms.ToolStripMenuItem proyectoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem crearProyectoToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog FBDBuscarCarpeta;
     }
 }
 
