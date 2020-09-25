@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic;
+﻿using IDE_CUNOC.Clases;
+using IDE_CUNOC.Logica;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +14,15 @@ using System.Windows.Forms;
 
 namespace IDE_CUNOC
 {
-    public partial class Form1 : Form
+    public partial class EditorDeTexto : Form
     {
-
-        public Form1()
+        private ArchivoDeTexto archivoP;
+        private Proyecto proyecto;
+        private AnalizadorLexico analizador;
+        public EditorDeTexto()
         {
             InitializeComponent();
+            analizador = new AnalizadorLexico(this);
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -30,7 +35,7 @@ namespace IDE_CUNOC
 
         }
 
-        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void crearFuncion(object sender, EventArgs e)
         {
 
         }
@@ -49,9 +54,10 @@ namespace IDE_CUNOC
 
         }
 
-        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void abrirFuncion(object sender, EventArgs e)
         {
             String ruta;
+
             //OPArchivos.InitialDirectory = "c:\\";
             OPArchivos.Filter = "Text files (*.gt)|*.gt";
             OPArchivos.FilterIndex = 2;
@@ -59,6 +65,8 @@ namespace IDE_CUNOC
             OPArchivos.ShowDialog();
             System.IO.StreamReader archivo = new System.IO.StreamReader(OPArchivos.FileName);
             ruta = archivo.ReadLine();
+            this.archivoP = new ArchivoDeTexto(archivo.ReadLine());
+            this.archivoP.Path = "hola";
             RtxtCodigo.Text = ruta.ToString();
 
         }
@@ -85,6 +93,32 @@ namespace IDE_CUNOC
                     }
                 }
             }
+        }
+
+        private void RtxtCodigo_TextChanged(object sender, EventArgs e)
+        {
+
+            Point pos = new Point(0, 0);
+            int firstIndex = RtxtCodigo.GetCharIndexFromPosition(pos);
+            int firstLine = RtxtCodigo.GetLineFromCharIndex(firstIndex);
+
+            //now we get index of last visible char 
+            //and number of last visible line
+            pos.X = ClientRectangle.Width;
+            pos.Y = ClientRectangle.Height;
+
+            int lastIndex = RtxtCodigo.GetCharIndexFromPosition(pos);
+            int lastLine = RtxtCodigo.GetLineFromCharIndex(lastIndex);
+
+
+            //this is point position of last visible char, we'll 
+            //use its Y value for calculating numberLabel size
+            pos = RtxtCodigo.GetPositionFromCharIndex(lastIndex);
+
+            //finally, renumber label
+            LblFilaColumna.Text = "Fila: " + pos + ", Columa: 0";
+            analizador.analizar();
+
         }
     }
 }
